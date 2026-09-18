@@ -8,6 +8,7 @@ import Author from './components/Author.vue';
 import AuthorsSection from './views/AuthorsSection.vue';
 import AuthorDetails from './components/AuthorDetails.vue';
 import AboutView from './views/AboutView.vue';
+import BookDetailsView from './views/BookDetailsView.vue';
 
 </script>
 
@@ -18,11 +19,13 @@ import AboutView from './views/AboutView.vue';
      <!-- <BooksSection /> -->
       <!-- <HeroBook /> -->
 
+      <BookDetailsView />
+
       <!-- <Author /> -->
        <!-- <AuthorsSection /> -->
         <!-- <AuthorDetails /> -->
 
-        <AboutView />
+        <!-- <AboutView /> -->
 
   </div>
   <Footer />
