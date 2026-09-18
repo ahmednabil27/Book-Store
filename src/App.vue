@@ -7,6 +7,7 @@ import HeroBook from './components/HeroBook.vue';
 import Author from './components/Author.vue';
 import AuthorsSection from './views/AuthorsSection.vue';
 import AuthorDetails from './components/AuthorDetails.vue';
+import AboutView from './views/AboutView.vue';
 
 </script>
 
@@ -19,7 +20,9 @@ import AuthorDetails from './components/AuthorDetails.vue';
 
       <!-- <Author /> -->
        <!-- <AuthorsSection /> -->
-        <AuthorDetails />
+        <!-- <AuthorDetails /> -->
+
+        <AboutView />
 
   </div>
   <Footer />
