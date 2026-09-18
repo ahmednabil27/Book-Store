@@ -1,4 +1,4 @@
-<!-- <script setup>
+<script setup>
 import { books } from '@/books';
 import Book from '@/components/Book.vue';
 </script>
@@ -13,4 +13,4 @@ import Book from '@/components/Book.vue';
 
 <style scoped>
 
-</style> -->
+</style>
