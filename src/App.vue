@@ -9,6 +9,7 @@ import AuthorsSection from './views/AuthorsSection.vue';
 import AuthorDetails from './components/AuthorDetails.vue';
 import AboutView from './views/AboutView.vue';
 import BookDetailsView from './views/BookDetailsView.vue';
+import AdminView from './views/AdminView.vue';
 
 </script>
 
@@ -23,12 +24,12 @@ import BookDetailsView from './views/BookDetailsView.vue';
 
       <!-- <Author /> -->
        <!-- <AuthorsSection /> -->
-        <AuthorDetails />
-
+        <!-- <AuthorDetails /> -->
+         <AdminView />
         <!-- <AboutView /> -->
 
   </div>
-  <Footer />
+  <!-- <Footer /> -->
 </template>
 
 <style scoped></style>
