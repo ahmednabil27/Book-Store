@@ -1,11 +1,13 @@
 <script setup>
 import { books } from '@/books';
 import { authors } from '@/authors';
-let author = authors[5];
+import BooksSection from './BooksSection.vue';
+let author = authors[22];
 </script>
 
 <template>
 <div class="wrapper my-3">
+    <h2>Author Details</h2>
     <div class="card mycard">
         <div class="inner-wrapper row justify-content-between align-items-center flex-column flex-sm-row">
             <div class="img-wrapper col-sm-3">
@@ -15,13 +17,13 @@ let author = authors[5];
               <h5 class="card-header mb-2 ps-0">{{  author.name }}</h5>
               <h6 class="card-title">{{  author.bio }}</h6>
               <q class="card-text text-muted desc mb-1 w-75 mx-auto mx-sm-0">{{  author.brief }}</q>
-              <div class="tags my-1">
-                  <div class="tag border border-info rounded-pill text-center " v-for="tag in author.tags"> {{ tag }}</div>
-              </div>
               <a href="#" class="btn btn-primary ">Go somewhere</a>
             </div>
 
         </div>
+    </div>
+    <div class="rel-books my-3">
+        <BooksSection />
     </div>
 </div>
 </template>

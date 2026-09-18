@@ -5,6 +5,7 @@ import Author from '@/components/Author.vue';
 </script>
 
 <template>
+    <h2 class="mt-2">Authors</h2>
     <div class="wrapper dis-grid my-3">
         <Author v-for="author in authors" :author/>
     </div>

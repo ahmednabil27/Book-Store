@@ -19,7 +19,7 @@ let props = defineProps(['book'])
         <div class="tags my-1">
             <div class="tag border border-info rounded-pill text-center " v-for="tag in book.tags"> {{ tag }}</div>
         </div>
-        <a href="#" class="btn btn-primary position-absolute">Go somewhere</a>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>
     </div>
 </div>
@@ -28,10 +28,10 @@ let props = defineProps(['book'])
 
 <style scoped>
 .mycard {
-    min-height: 500px;
+    min-height: 550px;
 }
 .mycard a {
-    bottom: 30px;
+    bottom: 0px;
 }
 img {
     width: 100%;

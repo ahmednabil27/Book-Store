@@ -19,11 +19,11 @@ import BookDetailsView from './views/BookDetailsView.vue';
      <!-- <BooksSection /> -->
       <!-- <HeroBook /> -->
 
-      <BookDetailsView />
+      <!-- <BookDetailsView /> -->
 
       <!-- <Author /> -->
        <!-- <AuthorsSection /> -->
-        <!-- <AuthorDetails /> -->
+        <AuthorDetails />
 
         <!-- <AboutView /> -->
 

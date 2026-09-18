@@ -5,7 +5,8 @@ import { onMounted, ref } from "vue";
 // let author = authors[1];
 let parentDiv = ref(null);
 
-let props = defineProps(['author'])
+// let props = defineProps(['author'])
+let author = authors[20]
 // onMounted(()=>{
     
 //     let div = document.querySelector(".card");
