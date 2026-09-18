@@ -2,10 +2,14 @@
 
 <template>
   <div class="my-3 position-relative z-1  mx-auto">
-    <section class="row justify-content-center justify-content-md-between align-items-center my-3">
-      <div class="image col-sm-3 mb-2">An Image</div>
-      <div class="about-info col-sm-7 px-2 px-md-1">
-        <h1>Our Story</h1>
+    <section class="row justify-content-center justify-content-lg-between align-items-center my-3">
+      <div class="image col-sm-3 mb-2">
+        <!-- An Image -->
+         <img src="../assets/about-img2.jpg" class="w-100" alt="">
+
+      </div>
+      <div class="about-info col-sm-8 px-2 px-md-1 my-2">
+        <h1 class="fw-bold">Our Story</h1>
         <div class="about-text ps-1 mt-3">
           <p>
             Our bookstore began with a simple idea: every great story deserves a
@@ -43,7 +47,7 @@
         <div class="accordion-item">
           <h2 class="accordion-header">
             <button
-              class="accordion-button"
+              class="accordion-button mybtn"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#panelsStayOpen-collapseOne"
@@ -295,10 +299,17 @@
 .image {
     width: 300px;
     height: 400px;
-    background-color: red;
+    /* background-color: red; */
     line-height: 400px;
     text-align: center;
     font-size: 25px;
     color: #fff;
+}
+.mybtn {
+    background-color: #e6e6e7;
+}
+.accordion-header button {
+    background-color: #f3f3f3d5;
+
 }
 </style>
