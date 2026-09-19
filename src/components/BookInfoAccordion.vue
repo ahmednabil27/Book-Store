@@ -3,10 +3,8 @@ import { authors } from '@/authors';
 import { books } from '@/books';
 
 
-// let props = defineProps(['book', 'author']);
+let props = defineProps(['book', 'author']);
 
-let book = books[0];
-let author = authors[0];
 
 
 </script>
@@ -73,7 +71,7 @@ let author = authors[0];
               overriding our default variables. It’s also worth noting that just
               about any HTML can go within the <code>.accordion-body</code>,
               though the transition does limit overflow. -->
-              {{ author.brief }}
+              <!-- {{ author.brief }} -->
             </div>
           </div>
         </div>
@@ -96,7 +94,14 @@ let author = authors[0];
             data-bs-parent="#accordionExample"
           >
             <div class="accordion-body">
-                {{  book.tags }} {{  book.year }}
+              <div class="tags d-flex gap-2">
+                <strong>Tags: </strong>
+                <p v-for="tag in book.tags">
+                  
+                  {{  tag }},
+                </p>
+              </div>
+              <p><b>Published Year</b>: {{  book.year }}</p>
             </div>
           </div>
         </div>

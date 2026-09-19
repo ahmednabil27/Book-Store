@@ -3,9 +3,7 @@ import { books } from "@/books";
 import { authors } from "@/authors.js";
 import BookInfoAccordion from "./BookInfoAccordion.vue";
 import BooksSection from "./BooksSection.vue";
-
-let book = books[0];
-let author = authors[0];
+let props = defineProps(['book']);
 </script>
 
 <template>
