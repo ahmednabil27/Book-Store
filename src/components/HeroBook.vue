@@ -3,7 +3,15 @@ import { books } from "@/books";
 import { authors } from "@/authors.js";
 import BookInfoAccordion from "./BookInfoAccordion.vue";
 import BooksSection from "./BooksSection.vue";
+import { useAuthorStore } from "@/stores/AuthorStore.js";
+import { computed } from "vue";
+
 let props = defineProps(['book']);
+
+let author = computed(()=>{
+  return useAuthorStore().getAuthorById(props.book.authorId);
+})
+
 </script>
 
 <template>
@@ -23,7 +31,7 @@ let props = defineProps(['book']);
             {{ book.description }}
           </p>
           <h6 class="published-year text-muted">published: {{ book.year }}</h6>
-          <h6>Author : <span class="text-muted">Ahmed Nabil</span></h6>
+          <h6>Author : <span class="text-muted">{{author.name}}</span></h6>
           <div class="tags my-1">
             <div
               class="tag border border-info rounded-pill text-center"

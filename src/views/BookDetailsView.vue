@@ -7,19 +7,24 @@ import { storeToRefs } from 'pinia';
 import { watchEffect, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { ref } from 'vue';
+import { useAuthorStore } from '@/stores/AuthorStore';
 
 const BookStore = useBookStore();
+const authorStore = useAuthorStore();
+
 let route =  useRoute();
 let related = ref([]);
+let author = ref({});
+let b = ref({})
 const {allBooks} = storeToRefs (BookStore);
 // const aBook = BookStore.randomBook();
 
 watch(
     ()=> route.params.id,
     ()=>{
-    let b = allBooks.value[+(route.params.id) -1];
+    b = allBooks.value[+(route.params.id) -1];
     related.value = BookStore.getAuthorBooks(b.authorId);
-
+    author = authorStore.getAuthorById(b.authorId);
 },
 {immediate: true}
 );
@@ -28,10 +33,10 @@ watch(
 
 <template>
 <div class="">
-    <HeroBook :book="allBooks[(+route.params.id) -1]" />
-    <BookInfoAccordion :book="allBooks[(+route.params.id) - 1]" />
+    <HeroBook :book="b" />
+    <BookInfoAccordion :book="b" :author/>
     <!-- <BooksSection  msg="Authors Books" :render-authro="true"/> -->
-    <BooksSection :tags="allBooks[(+route.params.id) -1].tags" msg="Related Books" :render-authro="false"/>
+    <BooksSection :tags="b.tags" msg="Related Books" :render-authro="false"/>
 </div>
 
 </template>

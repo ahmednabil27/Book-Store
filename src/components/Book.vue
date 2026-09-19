@@ -1,9 +1,16 @@
 <script setup>
 import {books} from '@/books.js';
-
+import { computed } from 'vue';
+import { useAuthorStore } from '@/stores/AuthorStore';
 // let book = books[79];
 
+let {getAuthorById} = useAuthorStore();
+
 let props = defineProps(['book'])
+
+let author = computed(()=>{
+    return getAuthorById(props.book.authorId);
+})
 
 </script>
 
@@ -16,7 +23,7 @@ let props = defineProps(['book'])
         <h5 class="card-title fw-bold">{{  book.title }}</h5>
         <p class="card-text text-muted desc mb-1">{{  book.description }}</p>
         <h6 class="published-year text-muted">published: {{  book.year }}</h6>
-        <h6>Author : <span class="text-muted">Ahmed Nabil</span></h6>
+        <h6>Author : <span class="text-muted">{{author.name}}</span></h6>
         <div class="tags my-1">
             <div class="tag border border-info rounded-pill text-center " v-for="tag in book.tags"> {{ tag }}</div>
         </div>
