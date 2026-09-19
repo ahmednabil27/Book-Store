@@ -65,6 +65,7 @@ let props = defineProps(['book', 'author']);
             <div class="accordion-body">
               <p><b> {{ author.name }} :</b></p>
               {{ author.brief }}
+              <RouterLink :to="'/authors/'+author.id">see more</RouterLink>
             </div>
           </div>
         </div>

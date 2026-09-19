@@ -58,7 +58,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
         </div>
       </div>
     </div>
-    <p class="copyright">Made With &lt;3 By Elzero</p>
+    <p class="copyright">Made With &lt;3 By Ahmed Nabil</p>
   </div>
 </template>
 

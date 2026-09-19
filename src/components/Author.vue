@@ -1,22 +1,11 @@
 <script setup>
 import { authors } from "@/authors";
-import { onMounted, ref } from "vue";
+import { useAuthorStore } from "@/stores/AuthorStore";
+import { useBookStore } from "@/stores/bookStore";
+import { computed, onMounted, ref } from "vue";
 
-// let author = authors[1];
-let parentDiv = ref(null);
+let props = defineProps(['author']);
 
-// let props = defineProps(['author'])
-let author = authors[20]
-// onMounted(()=>{
-    
-//     let div = document.querySelector(".card");
-//     div.addEventListener("click", function(){
-//         let ele = document.querySelector(".card > div");
-//         ele.classList.toggle("d-none");
-//         let img = document.querySelector(".card > img");
-//         img.classList.toggle("img");
-//     })
-// })
 
 </script>
 

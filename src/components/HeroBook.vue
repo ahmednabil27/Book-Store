@@ -31,7 +31,7 @@ let author = computed(()=>{
             {{ book.description }}
           </p>
           <h6 class="published-year text-muted">published: {{ book.year }}</h6>
-          <h6>Author : <span class="text-muted">{{author.name}}</span></h6>
+          <h6>Author : <span class="text-muted"><RouterLink class="text-decoration-none" :to="'/authors/'+author.id">{{author.name}}</RouterLink></span></h6>
           <div class="tags my-1">
             <div
               class="tag border border-info rounded-pill text-center"

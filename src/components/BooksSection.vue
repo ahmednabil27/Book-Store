@@ -22,16 +22,47 @@ let related = ref([]);
 
 
 
+// const relatedBooks = computed(() => {
+
+//     if (!props.tags || props.tags.length === 0) {
+//         return [];
+//     }
+
+//     return props.tags.flatMap(tag => {
+//         return bookStore.getRelatedBooks(tag);
+//     });
+
+// });
 const relatedBooks = computed(() => {
 
-    if (!props.tags || props.tags.length === 0) {
-        return [];
-    }
+  // --------------------------------
+  // Case 1: Tags exist
+  // --------------------------------
+  if (props.tags && props.tags.length > 0) {
 
     return props.tags.flatMap(tag => {
-        return bookStore.getRelatedBooks(tag);
+      return bookStore.getRelatedBooks(tag);
     });
 
+  }
+
+
+  // --------------------------------
+  // Case 2: Author exists
+  // --------------------------------
+  if (props.author) {
+
+    return bookStore.getAuthorBooks(props.author.id);
+
+  }
+
+
+  // --------------------------------
+  // Case 3: Nothing specified
+  // --------------------------------
+
+  // Return some books as default
+  return bookStore.allBooks.slice(0);
 });
 
 const authorWork = computed(()=>{

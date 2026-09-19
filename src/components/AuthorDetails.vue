@@ -1,8 +1,24 @@
 <script setup>
-import { books } from '@/books';
-import { authors } from '@/authors';
+
 import BooksSection from './BooksSection.vue';
-let author = authors[22];
+import { useAuthorStore } from '@/stores/AuthorStore.js';
+import { useBookStore } from '@/stores/bookStore.js';
+import { useRoute } from 'vue-router';
+import {ref, computed, watch} from 'vue'
+
+let route = useRoute();
+
+const {getAuthorById} = useAuthorStore();
+let author = ref({});
+
+watch(
+    ()=> route.params.id,
+    ()=>{
+        author.value = getAuthorById(+route.params.id)
+    },
+    {immediate: true}
+)
+
 </script>
 
 <template>
@@ -17,13 +33,13 @@ let author = authors[22];
               <h5 class="card-header mb-2 ps-0">{{  author.name }}</h5>
               <h6 class="card-title">{{  author.bio }}</h6>
               <q class="card-text text-muted desc mb-1 w-75 mx-auto mx-sm-0">{{  author.brief }}</q>
-              <a href="#" class="btn btn-primary ">Go somewhere</a>
+              <!-- <a href="#" class="btn btn-primary ">Go somewhere</a> -->
             </div>
 
         </div>
     </div>
     <div class="rel-books my-3">
-        <BooksSection />
+        <BooksSection msg="Author's Work" :author/>
     </div>
 </div>
 </template>
