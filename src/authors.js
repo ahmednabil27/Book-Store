@@ -349,18 +349,5 @@ export const authors = [
     createdAt: "2025-01-25T10:00:00Z",
     updatedAt: "2025-01-25T10:00:00Z"
   },
-  {
-    id: 25,
-    name: "Gabriel García Márquez",
-    bio: "Colombian novelist and journalist best known for One Hundred Years of Solitude and his magical realism.",
-    brief:
-      "Gabriel García Márquez began his career as a journalist in Colombia before becoming one of the most influential Latin American writers. His breakthrough novel, One Hundred Years of Solitude, established his distinctive use of magical realism, blending extraordinary events with everyday life. His fiction frequently explored family, memory, politics, solitude, and Latin American history. He received the Nobel Prize in Literature in 1982.",
-    avatarUrl:
-      "https://ui-avatars.com/api/?name=Gabriel+Garcia+Marquez&size=256&background=random&color=fff",
-    imageUrl:
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Gabriel%20Garcia%20Marquez.jpg",
-    createdAt: "2025-01-25T10:00:00Z",
-    updatedAt: "2025-01-25T10:00:00Z"
-  },
 ];
 
