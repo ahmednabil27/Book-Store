@@ -9,7 +9,7 @@ let props = defineProps(['book'])
 
 <template>
 <div class="wrapper d-flex justify-content-center align-items-center">
-    <RouterLink :to="'/books/'+book.id" class="text-decoration-none">
+    <RouterLink :to="'/books/'+book['id']" class="text-decoration-none">
             <div class="card mycard" style="width: 18rem;">
       <img :src="book.coverUrl" class="card-img-top" alt="...">
       <div class="card-body position-relative">

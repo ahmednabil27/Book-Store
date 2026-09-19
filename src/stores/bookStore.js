@@ -12,17 +12,16 @@ export const useBookStore = defineStore("books", ()=>{
         return allBooks.value.length;
     })
     // Actions
-    let getRelatedBooks = (book)=>{
-        let result = allBooks.value.filter((b)=>{
-            if(b['authorId'] === book['authorId'])
-                return b;
-            // if()
-        });
-        return result;
+    let getRelatedBooks = (tag)=>{
+        return allBooks.value.filter(book => book.tags.includes(tag));
     };
     let randomBook = ()=>{
-        return allBooks.value[(Math.floor(Math.random() * booksNumber))];
+        return allBooks.value[(Math.floor(Math.random() * booksNumber.value))];
     }
+    let getAuthorBooks = (id)=>{
+        return allBooks.value.filter(b => b.authorId === id);
+    }
+
     // there are more actions e.g getAllBooks, getBookById. but with server-json
 
     return {
@@ -30,6 +29,7 @@ export const useBookStore = defineStore("books", ()=>{
         relatedBooks,
         booksNumber,
         randomBook,
+        getAuthorBooks,
         getRelatedBooks
     };
 

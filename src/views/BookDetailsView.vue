@@ -14,13 +14,15 @@ let related = ref([]);
 const {allBooks} = storeToRefs (BookStore);
 // const aBook = BookStore.randomBook();
 
-// watch(
-//     ()=> route.params.id,
-//     ()=>{
-//     let b = allBooks[+(route.params.id) -1];
-//     related.value = BookStore.getRelatedBooks(b);
-// }
-// );
+watch(
+    ()=> route.params.id,
+    ()=>{
+    let b = allBooks.value[+(route.params.id) -1];
+    related.value = BookStore.getAuthorBooks(b.authorId);
+
+},
+{immediate: true}
+);
 
 </script>
 
@@ -28,7 +30,8 @@ const {allBooks} = storeToRefs (BookStore);
 <div class="">
     <HeroBook :book="allBooks[(+route.params.id) -1]" />
     <BookInfoAccordion :book="allBooks[(+route.params.id) - 1]" />
-    <BooksSection />
+    <!-- <BooksSection  msg="Authors Books" :render-authro="true"/> -->
+    <BooksSection :tags="allBooks[(+route.params.id) -1].tags" msg="Related Books" :render-authro="false"/>
 </div>
 
 </template>
