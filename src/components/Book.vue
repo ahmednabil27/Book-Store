@@ -9,7 +9,8 @@ let props = defineProps(['book'])
 
 <template>
 <div class="wrapper d-flex justify-content-center align-items-center">
-    <div class="card mycard" style="width: 18rem;">
+    <RouterLink :to="'/books/'+book.id" class="text-decoration-none">
+            <div class="card mycard" style="width: 18rem;">
       <img :src="book.coverUrl" class="card-img-top" alt="...">
       <div class="card-body position-relative">
         <h5 class="card-title fw-bold">{{  book.title }}</h5>
@@ -22,6 +23,7 @@ let props = defineProps(['book'])
         <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>
     </div>
+    </RouterLink>
 </div>
 
 </template>
@@ -29,6 +31,11 @@ let props = defineProps(['book'])
 <style scoped>
 .mycard {
     min-height: 550px;
+    transition: .3s;
+}
+.mycard:hover {
+    transform: translateY(-4px);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .12);
 }
 .mycard a {
     bottom: 0px;

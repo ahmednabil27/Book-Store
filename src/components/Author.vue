@@ -22,7 +22,8 @@ let author = authors[20]
 
 <template>
   <div class="wrapperr my-3 d-flex justify-content-center">
-    <div class="card text-bg-dark">
+    <RouterLink :to="'/authors/'+author.id"> 
+      <div class="card text-bg-dark">
       <img :src="author.imageUrl" class="card-img" alt="..." />
       <div class="card-img-overlay mcard">
         <h5 class="card-title">{{  author.name }}</h5>
@@ -34,6 +35,7 @@ let author = authors[20]
         <p class="card-text"><small>Last updated 3 mins ago</small></p>
       </div>
     </div>
+  </RouterLink>
   </div>
 </template>
 
