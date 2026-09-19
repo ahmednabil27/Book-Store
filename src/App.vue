@@ -10,6 +10,12 @@ import AuthorDetails from './components/AuthorDetails.vue';
 import AboutView from './views/AboutView.vue';
 import BookDetailsView from './views/BookDetailsView.vue';
 import AdminView from './views/AdminView.vue';
+import AdminBooks from './views/AdminBooks.vue';
+import AddBook from './views/AddBook.vue';
+import EditBook from './views/EditBook.vue';
+import AdminAuthorView from './views/AdminAuthorView.vue';
+import AdminAuthorCreateView from './views/AdminAuthorCreateView.vue';
+import AdminAuthorEditView from './views/AdminAuthorEditView.vue';
 
 </script>
 
@@ -23,13 +29,21 @@ import AdminView from './views/AdminView.vue';
       <!-- <BookDetailsView /> -->
 
       <!-- <Author /> -->
+       <!-- <AdminBooks /> -->
+        <!-- <AddBook /> -->
+         <!-- <EditBook /> -->
+          <AdminAuthorEditView />
+          <AdminAuthorCreateView />
+          <AdminAuthorView />
+
+
        <!-- <AuthorsSection /> -->
         <!-- <AuthorDetails /> -->
-         <AdminView />
+         <!-- <AdminView /> -->
         <!-- <AboutView /> -->
 
   </div>
-  <!-- <Footer /> -->
+  <Footer />
 </template>
 
 <style scoped></style>
