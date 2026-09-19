@@ -40,9 +40,12 @@ const tags = [
           </p>
         </div>
 
-        <button class="btn btn-secondary-custom">
-          ← Back to Books
-        </button>
+        <RouterLink to="/admin/books">
+          <button class="btn btn-secondary-custom">
+            ← Back to Books
+          </button>
+
+        </RouterLink>
       </div>
 
       <!-- Form Card -->

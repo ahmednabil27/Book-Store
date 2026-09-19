@@ -23,9 +23,12 @@
           </p>
         </div>
 
-        <button class="btn btn-secondary-custom">
-          ← Back to Authors
-        </button>
+        <RouterLink to="/admin/authors">
+          <button class="btn btn-secondary-custom">
+            ← Back to Authors
+          </button>
+
+        </RouterLink>
       </div>
 
       <!-- Form Card -->
