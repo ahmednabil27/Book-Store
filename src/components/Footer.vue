@@ -31,11 +31,11 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
       </div>
       <div class="box">
         <ul class="links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Help</a></li>
-          <li><a href="#">Create a new acount</a></li>
-          <li><a href="#">Login</a></li>
+          <li><RouterLink to="/">  <button>Home</button> </RouterLink></li>
+          <li><RouterLink to="/about"> <button>About</button>  </RouterLink></li>
+          <li><RouterLink>  <button>Help</button> </RouterLink></li>
+          <li><RouterLink>   <button>Create a new acount</button></RouterLink></li>
+          <li><RouterLink> <button>Login</button>  </RouterLink></li>
         </ul>
       </div>
       <div class="box">
@@ -57,14 +57,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
           </div>
         </div>
       </div>
-      <!-- <div class="box footer-gallery">
-        <img src="imgs/gallery-01.png" alt="" />
-        <img src="imgs/gallery-02.png" alt="" />
-        <img src="imgs/gallery-03.jpg" alt="" />
-        <img src="imgs/gallery-04.png" alt="" />
-        <img src="imgs/gallery-05.jpg" alt="" />
-        <img src="imgs/gallery-06.png" alt="" />
-      </div> -->
     </div>
     <p class="copyright">Made With &lt;3 By Elzero</p>
   </div>
@@ -136,14 +128,16 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 .footer .box .links li:hover {
   padding-left: 10px;
 }
-.footer .box .links li:hover a {
+.footer .box .links li:hover button {
   color: white;
 }
-.footer .box .links li a {
+.footer .box .links li button {
+  background-color: transparent;
+  border:none;
   color: #b9b9b9;
   transition: var(--main-transition);
 }
-.footer .box .links li a::before {
+.footer .box .links li button::before {
   font-family: "Font Awesome 5 Free";
   content: "\F101";
   font-weight: 900;

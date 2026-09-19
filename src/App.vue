@@ -32,10 +32,11 @@ import AdminAuthorEditView from './views/AdminAuthorEditView.vue';
        <!-- <AdminBooks /> -->
         <!-- <AddBook /> -->
          <!-- <EditBook /> -->
-          <AdminAuthorEditView />
+          <!-- <AdminAuthorEditView />
           <AdminAuthorCreateView />
-          <AdminAuthorView />
+          <AdminAuthorView /> -->
 
+          <RouterView />
 
        <!-- <AuthorsSection /> -->
         <!-- <AuthorDetails /> -->
