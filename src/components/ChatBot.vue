@@ -1,64 +1,228 @@
-```vue
 <script setup>
 import { ref, nextTick } from "vue";
+
+// ---------------------------------------
+// OpenRouter configuration
+// ---------------------------------------
+
+const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
+
+const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
+
+const MODEL = "openrouter/free";
+
+// ---------------------------------------
+// Chat state
+// ---------------------------------------
 
 const isOpen = ref(false);
 const message = ref("");
 const isTyping = ref(false);
 
-const messages = ref([
+const chatBody = ref(null);
+
+// ---------------------------------------
+// Conversation history
+// ---------------------------------------
+
+const conversation = ref([
   {
-    id: 1,
     role: "assistant",
-    text: "Hi! 👋 I'm your Bookstore Assistant. Ask me anything about books or authors!"
-  }
+    content:
+      "Hi! 👋 I'm your Bookstore Assistant. Ask me anything about books or authors!",
+  },
 ]);
 
+// ---------------------------------------
+// Suggested questions
+// ---------------------------------------
+
 const suggestedQuestions = [
-  "Tell me about this book",
-  "Who is the author?",
-  "What books do you recommend?",
-  "What is this book about?"
+  "Tell me about Project Hail Mary",
+  "Who is Andy Weir?",
+  "Recommend a science-fiction book",
+  "What makes a good book?",
 ];
 
-const chatBody = ref(null);
+// ---------------------------------------
+// System instruction
+// ---------------------------------------
+
+const systemInstruction = `
+You are the AI assistant for a bookstore website.
+
+Your name is Bookstore Assistant.
+
+Your job is to help users with questions about:
+
+- Books
+- Authors
+- Book genres
+- Book recommendations
+- Book summaries
+- Themes and characters
+- General literature questions
+
+Be friendly, concise, and helpful.
+
+If the user asks about a book or author that you don't know,
+be honest and say that you don't have enough information.
+
+Do not invent specific facts about books or authors.
+
+When recommending books, briefly explain why you recommend them.
+
+Keep answers suitable for a bookstore website.
+`;
+
+// ---------------------------------------
+// Open / close chatbot
+// ---------------------------------------
 
 function toggleChat() {
   isOpen.value = !isOpen.value;
 }
 
-function addMessage(role, text) {
-  messages.value.push({
-    id: Date.now(),
+// ---------------------------------------
+// Add message to conversation
+// ---------------------------------------
+
+function addMessage(role, content) {
+  conversation.value.push({
     role,
-    text
+    content,
   });
 }
+
+// ---------------------------------------
+// Send message to OpenRouter
+// ---------------------------------------
 
 async function sendMessage(text = message.value) {
   const userMessage = text.trim();
 
-  if (!userMessage || isTyping.value) return;
+  // Prevent empty messages
+  // or multiple requests at the same time
+  if (!userMessage || isTyping.value) {
+    return;
+  }
 
+  // Add user's message
   addMessage("user", userMessage);
+
+  // Clear input
   message.value = "";
 
   await scrollToBottom();
 
-  // Temporary fake response
+  // Show typing indicator
   isTyping.value = true;
 
-  setTimeout(async () => {
-    addMessage(
-      "assistant",
-      "That's a great question! 🤖 I'll be able to answer questions about books and authors once the AI API is connected."
-    );
+  try {
+    const response = await fetch(OPENROUTER_API_URL, {
+      method: "POST",
 
+      headers: {
+        "Content-Type": "application/json",
+
+        Authorization: `Bearer ${OPENROUTER_API_KEY}`,
+
+        // Optional OpenRouter metadata
+        "HTTP-Referer": window.location.origin,
+        "X-Title": "Bookstore AI Assistant",
+      },
+
+      body: JSON.stringify({
+        model: MODEL,
+
+        messages: [
+          {
+            role: "system",
+            content: systemInstruction,
+          },
+
+          // Send previous conversation
+          ...conversation.value,
+        ],
+      }),
+    });
+
+    // ---------------------------------------
+    // Handle HTTP errors
+    // ---------------------------------------
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+
+      console.error("OpenRouter API error:", errorData);
+
+      if (response.status === 429) {
+        throw new Error("RATE_LIMIT");
+      }
+
+      if (response.status === 401) {
+        throw new Error("INVALID_API_KEY");
+      }
+
+      if (response.status === 402) {
+        throw new Error("INSUFFICIENT_CREDITS");
+      }
+
+      throw new Error("API_ERROR");
+    }
+
+    // ---------------------------------------
+    // Parse response
+    // ---------------------------------------
+
+    const data = await response.json();
+
+    console.log("OpenRouter response:", data);
+
+    const aiResponse = data?.choices?.[0]?.message?.content;
+
+    if (!aiResponse) {
+      throw new Error("EMPTY_RESPONSE");
+    }
+
+    // ---------------------------------------
+    // Add AI response to conversation
+    // ---------------------------------------
+
+    addMessage("assistant", aiResponse);
+  } catch (error) {
+    console.error("OpenRouter error:", error);
+
+    // ---------------------------------------
+    // User-friendly errors
+    // ---------------------------------------
+
+    let errorMessage = "Sorry, something went wrong while contacting the AI.";
+
+    if (error.message === "RATE_LIMIT") {
+      errorMessage =
+        "⏳ The AI service is temporarily rate-limited. Please try again in a little while.";
+    } else if (error.message === "INVALID_API_KEY") {
+      errorMessage = "🔑 There is a problem with the OpenRouter API key.";
+    } else if (error.message === "INSUFFICIENT_CREDITS") {
+      errorMessage =
+        "💳 The OpenRouter account doesn't have enough available credits for this request.";
+    } else if (error.message === "EMPTY_RESPONSE") {
+      errorMessage =
+        "🤖 The AI didn't return an answer. Please try asking again.";
+    }
+
+    addMessage("assistant", errorMessage);
+  } finally {
     isTyping.value = false;
 
     await scrollToBottom();
-  }, 1000);
+  }
 }
+
+// ---------------------------------------
+// Scroll chat to bottom
+// ---------------------------------------
 
 async function scrollToBottom() {
   await nextTick();
@@ -82,7 +246,6 @@ async function scrollToBottom() {
 
   <!-- Chat Window -->
   <div v-if="isOpen" class="chat-window shadow-lg">
-
     <!-- Header -->
     <div class="chat-header">
       <div class="d-flex align-items-center gap-2">
@@ -92,9 +255,10 @@ async function scrollToBottom() {
 
         <div>
           <h6 class="mb-0 fw-bold">Bookstore Assistant</h6>
+
           <small class="text-white-50">
             <span class="online-dot"></span>
-            Online
+            AI Assistant
           </small>
         </div>
       </div>
@@ -109,11 +273,11 @@ async function scrollToBottom() {
     </div>
 
     <!-- Messages -->
+    <!-- Messages -->
     <div ref="chatBody" class="chat-body">
-
       <div
-        v-for="msg in messages"
-        :key="msg.id"
+        v-for="(msg, index) in conversation"
+        :key="index"
         class="message-wrapper"
         :class="msg.role === 'user' ? 'user-wrapper' : 'assistant-wrapper'"
       >
@@ -121,7 +285,7 @@ async function scrollToBottom() {
           class="message"
           :class="msg.role === 'user' ? 'user-message' : 'assistant-message'"
         >
-          {{ msg.text }}
+          {{ msg.content }}
         </div>
       </div>
 
@@ -133,7 +297,6 @@ async function scrollToBottom() {
           <span></span>
         </div>
       </div>
-
     </div>
 
     <!-- Suggestions -->
@@ -143,6 +306,7 @@ async function scrollToBottom() {
         :key="question"
         class="btn btn-sm btn-outline-secondary suggestion-btn"
         @click="sendMessage(question)"
+        :disabled="isTyping"
       >
         {{ question }}
       </button>
@@ -155,6 +319,7 @@ async function scrollToBottom() {
         type="text"
         class="form-control"
         placeholder="Ask about a book or author..."
+        :disabled="isTyping"
         @keyup.enter="sendMessage()"
       />
 
@@ -166,13 +331,13 @@ async function scrollToBottom() {
         <i class="bi bi-send-fill"></i>
       </button>
     </div>
-
   </div>
 </template>
 
 <style scoped>
 .chat-toggle {
   position: fixed;
+
   right: 25px;
   bottom: 25px;
 
@@ -191,6 +356,7 @@ async function scrollToBottom() {
 
 .chat-toggle:hover {
   transform: scale(1.08);
+
   background-color: #343a40;
 }
 
@@ -202,12 +368,13 @@ async function scrollToBottom() {
   right: 25px;
   bottom: 25px;
 
-  width: 380px;
-  height: 600px;
+  width: 360px;
+  height: 500px;
 
   background: white;
 
   border-radius: 16px;
+
   overflow: hidden;
 
   z-index: 1050;
@@ -220,11 +387,13 @@ async function scrollToBottom() {
 
 .chat-header {
   background: #212529;
+
   color: white;
 
   padding: 15px;
 
   display: flex;
+
   justify-content: space-between;
   align-items: center;
 }
@@ -236,9 +405,11 @@ async function scrollToBottom() {
   border-radius: 50%;
 
   background: white;
+
   color: #212529;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -294,6 +465,8 @@ async function scrollToBottom() {
   font-size: 0.9rem;
 
   line-height: 1.5;
+
+  white-space: pre-wrap;
 }
 
 .assistant-message {
@@ -314,11 +487,13 @@ async function scrollToBottom() {
   border-bottom-right-radius: 4px;
 }
 
-/* Typing indicator */
+/* Typing */
 
 .typing {
   display: flex;
+
   gap: 4px;
+
   align-items: center;
 }
 
@@ -361,6 +536,7 @@ async function scrollToBottom() {
   padding: 8px 12px;
 
   display: flex;
+
   gap: 6px;
 
   overflow-x: auto;
@@ -403,6 +579,7 @@ async function scrollToBottom() {
   border-radius: 50%;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 }
@@ -415,6 +592,7 @@ async function scrollToBottom() {
     bottom: 10px;
 
     width: calc(100% - 20px);
+
     height: calc(100vh - 80px);
   }
 
@@ -424,4 +602,3 @@ async function scrollToBottom() {
   }
 }
 </style>
-
