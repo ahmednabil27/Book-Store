@@ -1,62 +1,71 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useBookStore } from "@/stores/bookStore";
+import { useAuthorStore } from "@/stores/AuthorStore";
 
 const stats = ref([]);
 const loading = ref(false);
 const error = ref("");
 const status = ref("Idle");
 
-async function loadDashboard() {
-  loading.value = true;
-  error.value = "";
-  stats.value = [];
-  status.value = "Loading…";
+const numberOfBooks = useBookStore().allBooks.length;
+const numberOfAuthors = useAuthorStore().allAuthors.length;
 
-  try {
-    // Start both requests at the same time
-    const [usersRes, postsRes] = await Promise.all([
-      fetch("https://jsonplaceholder.typicode.com/users"),
-      fetch("https://jsonplaceholder.typicode.com/posts"),
-    ]);
+const average = computed(()=>{
+  return Math.round(numberOfBooks / numberOfAuthors);
+})
 
-    if (!usersRes.ok || !postsRes.ok) {
-      throw new Error("One of the requests failed.");
-    }
+// async function loadDashboard() {
+//   loading.value = true;
+//   error.value = "";
+//   stats.value = [];
+//   status.value = "Loading…";
 
-    // Parse both responses at the same time
-    const [users, posts] = await Promise.all([
-      usersRes.json(),
-      postsRes.json(),
-    ]);
+//   try {
+//     // Start both requests at the same time
+//     const [usersRes, postsRes] = await Promise.all([
+//       fetch("https://jsonplaceholder.typicode.com/users"),
+//       fetch("https://jsonplaceholder.typicode.com/posts"),
+//     ]);
 
-    const postsPerUser = Math.round(posts.length / users.length);
+//     if (!usersRes.ok || !postsRes.ok) {
+//       throw new Error("One of the requests failed.");
+//     }
 
-    stats.value = [
-      {
-        title: "Users",
-        value: users.length,
-        note: "Total users",
-      },
-      {
-        title: "Posts",
-        value: posts.length,
-        note: "Total posts",
-      },
-      {
-        title: "Avg posts/user",
-        value: postsPerUser,
-        note: "Average posts per user",
-      },
-    ];
+//     // Parse both responses at the same time
+//     const [users, posts] = await Promise.all([
+//       usersRes.json(),
+//       postsRes.json(),
+//     ]);
 
-    status.value = "✅ Ready";
-  } catch (e) {
-    status.value = "❌ Error";
-    error.value = `Failed: ${e.message}`;
-  } finally {
-    loading.value = false;
-  }
-}
+//     const postsPerUser = Math.round(posts.length / users.length);
+
+//     stats.value = [
+//       {
+//         title: "Users",
+//         value: users.length,
+//         note: "Total users",
+//       },
+//       {
+//         title: "Posts",
+//         value: posts.length,
+//         note: "Total posts",
+//       },
+//       {
+//         title: "Avg posts/user",
+//         value: postsPerUser,
+//         note: "Average posts per user",
+//       },
+//     ];
+
+//     status.value = "✅ Ready";
+//   } catch (e) {
+//     status.value = "❌ Error";
+//     error.value = `Failed: ${e.message}`;
+//   } finally {
+//     loading.value = false;
+//   }
+// }
 </script>
 
 <template>
@@ -85,7 +94,22 @@ async function loadDashboard() {
         </div>
 
         <div class="stats">
-          <div
+          <div class="stat">
+            <div class="muted">Books</div>
+            <div class="stat-value">{{ numberOfBooks }}</div>
+            <div class="muted">Calculated by locally</div>
+          </div>
+          <div class="stat">
+            <div class="muted">Authors</div>
+            <div class="stat-value">{{ numberOfAuthors }}</div>
+            <div class="muted">Calculated by locally</div>
+          </div>
+          <div class="stat">
+            <div class="muted">Average</div>
+            <div class="stat-value">{{ average}}</div>
+            <div class="muted">Books for each author</div>
+          </div>
+          <!-- <div
             v-for="stat in stats"
             :key="stat.title"
             class="stat"
@@ -101,7 +125,7 @@ async function loadDashboard() {
             <div class="muted">
               {{ stat.note }}
             </div>
-          </div>
+          </div> -->
         </div>
 
         <div class="muted text-white-50">

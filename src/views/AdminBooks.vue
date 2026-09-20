@@ -1,136 +1,75 @@
-
 <script setup>
 import { ref } from "vue";
+import { useBookStore } from "@/stores/bookStore";
+import { useAuthorStore } from "@/stores/AuthorStore";
+import { storeToRefs } from "pinia";
 
-const books = ref([
-  {
-    id: 1,
-    title: "Mistborn",
-    author: "Brandon Sanderson",
-    year: 2006,
-    tags: ["fantasy", "magic"],
-  },
-  {
-    id: 2,
-    title: "Project Hail Mary",
-    author: "Andy Weir",
-    year: 2021,
-    tags: ["sci-fi", "space"],
-  },
-  {
-    id: 3,
-    title: "The Murder of Roger Ackroyd",
-    author: "Agatha Christie",
-    year: 1926,
-    tags: ["mystery", "crime"],
-  },
-  {
-    id: 4,
-    title: "The Hobbit",
-    author: "J.R.R. Tolkien",
-    year: 1937,
-    tags: ["fantasy", "adventure"],
-  },
-  {
-    id: 5,
-    title: "The Martian",
-    author: "Andy Weir",
-    year: 2011,
-    tags: ["sci-fi", "survival"],
-  },
-]);
+const { allBooks } = storeToRefs(useBookStore());
+const { authorsNumber } = storeToRefs(useAuthorStore());
+let { getAuthorById } = useAuthorStore();
+
+
 </script>
 
 <template>
   <div class="main-wrapper">
     <div class="app">
-
       <!-- Page Header -->
       <div class="header-row">
-
         <div>
-          <div class="breadcrumb text-white-50">
-            Admin / Books
-          </div>
+          <div class="breadcrumb text-white-50">Admin / Books</div>
 
-          <h2 class="text-white mb-1">
-            Manage Books
-          </h2>
+          <h2 class="text-white mb-1">Manage Books</h2>
 
-          <p class="text-white-50 mb-0">
-            Manage the books in your library.
-          </p>
+          <p class="text-white-50 mb-0">Manage the books in your library.</p>
         </div>
 
-        <button class="add-btn">
-          + Add New Book
-        </button>
-
+        <RouterLink to="/admin/books/new">
+          <button class="add-btn">+ Add New Book</button>
+        </RouterLink>
       </div>
 
       <!-- Stats -->
       <div class="stats">
-
         <div class="stat">
-          <div class="muted">
-            Total Books
-          </div>
+          <div class="muted">Total Books</div>
 
           <div class="stat-value">
-            {{ books.length }}
+            {{ allBooks.length }}
           </div>
 
-          <div class="muted">
-            Books in library
-          </div>
+          <div class="muted">Books in library</div>
         </div>
 
         <div class="stat">
-          <div class="muted">
-            Authors
-          </div>
+          <div class="muted">Authors</div>
 
           <div class="stat-value">
-            4
+            {{ authorsNumber }}
           </div>
 
-          <div class="muted">
-            Book authors
-          </div>
+          <div class="muted">Book authors</div>
         </div>
-
       </div>
 
       <!-- Table Card -->
       <div class="card table-card">
-
         <!-- Table Header -->
         <div class="table-header">
-
           <div>
-            <h4 class="text-white mb-1">
-              All Books
-            </h4>
+            <h4 class="text-white mb-1">All Books</h4>
 
-            <p class="text-white-50 mb-0">
-              {{ books.length }} books found
-            </p>
+            <p class="text-white-50 mb-0">{{ allBooks.length }} books found</p>
           </div>
 
           <div class="search-box">
-            <input
-              type="text"
-              placeholder="Search books..."
-            />
+            <input type="text" placeholder="Search books..." />
           </div>
-
         </div>
 
         <!-- Table -->
         <div class="table-responsive">
-
           <table class="books-table">
-
             <thead>
               <tr>
                 <th>#</th>
@@ -143,39 +82,28 @@ const books = ref([
             </thead>
 
             <tbody>
-
-              <tr
-                v-for="book in books"
-                :key="book.id"
-              >
-
+              <tr v-for="book in allBooks" :key="book.id">
                 <td class="muted">
                   {{ book.id }}
                 </td>
 
                 <td>
                   <div class="book-info">
-
-                    <div class="book-cover">
-                      📖
-                    </div>
+                    <div class="book-cover">📖</div>
 
                     <div>
                       <div class="book-title">
                         {{ book.title }}
                       </div>
 
-                      <div class="book-id">
-                        ID: {{ book.id }}
-                      </div>
+                      <div class="book-id">ID: {{ book.id }}</div>
                     </div>
-
                   </div>
                 </td>
 
                 <td>
                   <span class="author">
-                    {{ book.author }}
+                    {{ getAuthorById(book.authorId).name }}
                   </span>
                 </td>
 
@@ -185,44 +113,24 @@ const books = ref([
 
                 <td>
                   <div class="tags">
-
-                    <span
-                      v-for="tag in book.tags"
-                      :key="tag"
-                      class="tag"
-                    >
+                    <span v-for="tag in book.tags" :key="tag" class="tag">
                       {{ tag }}
                     </span>
-
                   </div>
                 </td>
 
                 <td>
-
                   <div class="actions">
+                    <button class="action-btn edit-btn">Edit</button>
 
-                    <button class="action-btn edit-btn">
-                      Edit
-                    </button>
-
-                    <button class="action-btn delete-btn">
-                      Delete
-                    </button>
-
+                    <button class="action-btn delete-btn">Delete</button>
                   </div>
-
                 </td>
-
               </tr>
-
             </tbody>
-
           </table>
-
         </div>
-
       </div>
-
     </div>
   </div>
 </template>

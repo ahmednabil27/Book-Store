@@ -1,4 +1,19 @@
 <script setup>
+import { computed, ref } from "vue";
+import { useBookStore } from "@/stores/bookStore";
+import { useAuthorStore } from "@/stores/AuthorStore";
+import { storeToRefs } from "pinia";
+
+const {authorsNumber, allAuthors} = storeToRefs(useAuthorStore());
+const {booksNumber, allBooks} = storeToRefs(useBookStore());
+const eachAuthorBooks = computed(()=>{
+  let res = [];
+  allAuthors.value.forEach((author)=>{
+    res.push((allBooks.value.filter(book => book.authorId === author.id)).length);
+  });
+  return res;
+});
+
 const authors = [
   {
     id: 1,
@@ -55,9 +70,12 @@ const authors = [
           </p>
         </div>
 
-        <button class="btn btn-primary-custom">
-          + Add New Author
-        </button>
+        <RouterLink to="/admin/authors/new">
+
+          <button class="btn btn-primary-custom">
+            + Add New Author
+          </button>
+        </RouterLink>
       </div>
 
       <!-- Stats -->
@@ -71,7 +89,7 @@ const authors = [
             </div>
 
             <div class="stat-value">
-              {{ authors.length }}
+              {{ authorsNumber }}
             </div>
 
             <div class="stat-note">
@@ -88,7 +106,7 @@ const authors = [
             </div>
 
             <div class="stat-value">
-              33
+              {{ booksNumber }}
             </div>
 
             <div class="stat-note">
@@ -129,7 +147,7 @@ const authors = [
             </h2>
 
             <p class="text-secondary small mb-0">
-              {{ authors.length }} authors found
+              {{ allAuthors.length }} authors found
             </p>
           </div>
 
@@ -163,7 +181,7 @@ const authors = [
             <tbody>
 
               <tr
-                v-for="author in authors"
+                v-for="author in allAuthors"
                 :key="author.id"
               >
 
@@ -205,7 +223,7 @@ const authors = [
                 <!-- Books -->
                 <td>
                   <span class="books-badge">
-                    {{ author.books }} books
+                    {{ eachAuthorBooks[(author.id) - 1] }} books
                   </span>
                 </td>
 
@@ -237,7 +255,7 @@ const authors = [
           class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 mt-4 pt-3 border-top-custom"
         >
           <small class="text-secondary">
-            Showing {{ authors.length }} authors
+            Showing {{ allAuthors.length }} authors
           </small>
 
           <span class="badge-custom">
