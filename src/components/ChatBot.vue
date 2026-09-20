@@ -68,18 +68,19 @@ if(props.book){
 // computed is the best here. as it's derieved from other states.
 const suggestedQuestions = computed(() => {
   const questions = [
-    `Tell me about ${
-      book.value || "what the best science-fiction novel is"
-    }`,
-
     `Who is ${author.value}?`,
+    `Tell me about '${
+      book.value || "what the best science-fiction novel is"
+    }'`,
 
-    `Recommend a ${
-      tag.value || "science-fiction"
-    } book`,
+
+
   ];
 
   if (props.book) {
+    questions.push(  `Recommend a ${
+      tag.value || "science-fiction"
+    } book`);
     questions.push("What makes a good book?");
   }
 

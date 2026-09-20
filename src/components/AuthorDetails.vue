@@ -5,6 +5,7 @@ import { useAuthorStore } from '@/stores/AuthorStore.js';
 import { useBookStore } from '@/stores/bookStore.js';
 import { useRoute } from 'vue-router';
 import {ref, computed, watch} from 'vue'
+import ChatBot from './ChatBot.vue';
 
 let route = useRoute();
 
@@ -41,6 +42,7 @@ watch(
     <div class="rel-books my-3">
         <BooksSection msg="Author's Work" :author/>
     </div>
+    <ChatBot :author/>
 </div>
 </template>
 
