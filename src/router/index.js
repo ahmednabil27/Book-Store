@@ -14,6 +14,7 @@ import Home from '@/views/Home.vue'
 import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -78,7 +79,12 @@ const router = createRouter({
     {
       path: '/admin/authors/:id/edit',
       component: AdminAuthorEditView
-    },
+    }, 
+    {
+      path: "/:pathMatch(.*)*",
+      name: "not-found",
+      component: NotFoundView
+    }
   ],
 })
 
