@@ -16,7 +16,10 @@ import EditBook from './views/EditBook.vue';
 import AdminAuthorView from './views/AdminAuthorView.vue';
 import AdminAuthorCreateView from './views/AdminAuthorCreateView.vue';
 import AdminAuthorEditView from './views/AdminAuthorEditView.vue';
+import ChatBot from './components/ChatBot.vue';
 
+
+console.log(import.meta.env.VITE_GEMINI_API_KEY);
 </script>
 
 <template>
@@ -42,6 +45,7 @@ import AdminAuthorEditView from './views/AdminAuthorEditView.vue';
         <!-- <AuthorDetails /> -->
          <!-- <AdminView /> -->
         <!-- <AboutView /> -->
+         <ChatBot />
 
   </div>
   <Footer />

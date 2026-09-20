@@ -39,3 +39,7 @@ __screenshots__/
 *.timestamp-*-*.mjs
 
 assets/
+
+.env
+.env.local
+.env.*.local
