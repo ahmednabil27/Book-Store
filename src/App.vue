@@ -17,6 +17,7 @@ import AdminAuthorView from './views/AdminAuthorView.vue';
 import AdminAuthorCreateView from './views/AdminAuthorCreateView.vue';
 import AdminAuthorEditView from './views/AdminAuthorEditView.vue';
 import ChatBot from './components/ChatBot.vue';
+import HomeView from './views/HomeView.vue';
 
 
 console.log(import.meta.env.VITE_GEMINI_API_KEY);
@@ -38,8 +39,11 @@ console.log(import.meta.env.VITE_GEMINI_API_KEY);
           <!-- <AdminAuthorEditView />
           <AdminAuthorCreateView />
           <AdminAuthorView /> -->
+          <HomeView />
+          
 
-          <RouterView />
+
+          <!-- <RouterView /> -->
 
        <!-- <AuthorsSection /> -->
         <!-- <AuthorDetails /> -->
