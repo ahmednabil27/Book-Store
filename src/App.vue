@@ -39,11 +39,11 @@ console.log(import.meta.env.VITE_GEMINI_API_KEY);
           <!-- <AdminAuthorEditView />
           <AdminAuthorCreateView />
           <AdminAuthorView /> -->
-          <HomeView />
+          <!-- <HomeView /> -->
           
 
 
-          <!-- <RouterView /> -->
+          <RouterView />
 
        <!-- <AuthorsSection /> -->
         <!-- <AuthorDetails /> -->

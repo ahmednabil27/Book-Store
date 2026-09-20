@@ -11,6 +11,7 @@ import AuthorsSection from '@/views/AuthorsSection.vue'
 import BookDetailsView from '@/views/BookDetailsView.vue'
 import EditBook from '@/views/EditBook.vue'
 import Home from '@/views/Home.vue'
+import HomeView from '@/views/HomeView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -18,7 +19,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: Home
+      component: HomeView
     },
     {
       path: '/about',
