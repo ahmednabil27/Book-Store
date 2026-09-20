@@ -1,6 +1,20 @@
 <script setup>
-import { ref, nextTick } from "vue";
+import { ref, nextTick, computed } from "vue";
 
+const props = defineProps(['book', 'author']);
+
+
+const author = computed(()=>{
+    return props.author?.name || 'Mark Twien';
+});
+
+const book = computed(()=>{
+    return props.book?.title || '';
+});
+
+const tag = computed(()=>{
+    return props.book?.tags[0] || '';
+})
 // ---------------------------------------
 // OpenRouter configuration
 // ---------------------------------------
@@ -37,12 +51,41 @@ const conversation = ref([
 // Suggested questions
 // ---------------------------------------
 
-const suggestedQuestions = [
-  "Tell me about Project Hail Mary",
-  "Who is Andy Weir?",
-  "Recommend a science-fiction book",
-  "What makes a good book?",
-];
+let msg2 = ``;
+if(props.book){
+  msg2 = `What makes a good book?`;
+}
+// this is mine. the main issue here is that we lose the reactive dependency.
+// const suggestedQuestions = ref([
+//   `Tell me about ${book.value || "what the best science-fiction novel is"}`,
+//   `Who is ${author.value}?`,
+//   `Recommend a ${tag.value|| 'science-fiction'} book`,
+//   msg2
+// ]);
+
+
+// this is chatgpt's one.
+// computed is the best here. as it's derieved from other states.
+const suggestedQuestions = computed(() => {
+  const questions = [
+    `Tell me about ${
+      book.value || "what the best science-fiction novel is"
+    }`,
+
+    `Who is ${author.value}?`,
+
+    `Recommend a ${
+      tag.value || "science-fiction"
+    } book`,
+  ];
+
+  if (props.book) {
+    questions.push("What makes a good book?");
+  }
+
+  return questions;
+});
+
 
 // ---------------------------------------
 // System instruction
