@@ -348,7 +348,7 @@ async function scrollToBottom() {
       <button
         v-for="question in suggestedQuestions"
         :key="question"
-        class="btn btn-sm btn-outline-secondary suggestion-btn"
+        class="btn btn-sm btn-outline-warning text-dark suggestion-btn"
         @click="sendMessage(question)"
         :disabled="isTyping"
       >
@@ -368,11 +368,11 @@ async function scrollToBottom() {
       />
 
       <button
-        class="btn btn-primary send-btn"
+        class="btn btn-warning send-btn"
         :disabled="!message.trim() || isTyping"
         @click="sendMessage()"
       >
-        <i class="bi bi-send-fill"></i>
+        <i class="bi bi-send-fill text-white"></i>
       </button>
     </div>
   </div>
@@ -388,7 +388,7 @@ async function scrollToBottom() {
   width: 60px;
   height: 60px;
 
-  background-color: #212529;
+  background: #ffc96c;
   color: white;
 
   font-size: 1.4rem;
@@ -401,7 +401,7 @@ async function scrollToBottom() {
 .chat-toggle:hover {
   transform: scale(1.08);
 
-  background-color: #343a40;
+    background: #edb553;
 }
 
 /* Chat Window */
@@ -430,7 +430,7 @@ async function scrollToBottom() {
 /* Header */
 
 .chat-header {
-  background: #212529;
+    background: #ffa710;
 
   color: white;
 
@@ -524,9 +524,11 @@ async function scrollToBottom() {
 }
 
 .user-message {
-  background: #212529;
+    background: #ffa710;
 
   color: white;
+  font-size: 15px;
+  font-weight: 500;
 
   border-bottom-right-radius: 4px;
 }
