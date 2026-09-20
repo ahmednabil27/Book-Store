@@ -1,38 +1,106 @@
-# final-project
+# Important note;
+This is Version 2 of the project.
 
-This template should help get you started developing with Vue 3 in Vite.
+I have been really busy recently and haven't had enough time to focus on this project. As a result, I used AI assistance several times in this version, especially for the styling and UI design.
 
-## Recommended IDE Setup
+Despite that, I fully understand every line of code in this project.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Version 1 was developed with very little AI assistance. I will also upload it for reference.
 
-## Recommended Browser Setup
+Thank you for your understanding.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+# 📚 BookNest — Books & Authors SPA
 
-## Customize configuration
+A modern **Books & Authors Single Page Application (SPA)** built with **Vue 3**.  
+The application allows users to browse books and authors, explore related books, and provides an admin dashboard for managing the application's data.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+---
 
-## Project Setup
 
-```sh
-npm install
-```
+## 🚀 Project Overview
 
-### Compile and Hot-Reload for Development
+BookNest is a bookstore/library-style web application developed as a Vue 3 final project.
 
-```sh
-npm run dev
-```
+The project demonstrates the use of:
 
-### Compile and Minify for Production
+- Vue 3 Composition API
+- `<script setup>`
+- Vue Router
+- Pinia
+- Fetch API
+- JSON Server
+- Bootstrap
+- Reusable components
+- Props & Emits
+- Composables
+- CRUD operations
+- Form validation
+- Loading and error states
+- Responsive UI
 
-```sh
-npm run build
-```
+The application is divided into two main areas:
+
+### 🌐 Public Website
+
+Users can:
+
+- Browse books
+- View book details
+- Browse authors
+- View author profiles
+- Explore books written by an author
+- Explore books by category/tag
+- Search for books
+- Get book recommendations
+
+### 🔐 Admin Dashboard
+
+Administrators can manage:
+
+- Books
+- Authors
+
+CRUD operations include:
+
+- Create
+- Read
+- Update
+- Delete
+
+---
+
+# ✨ Features
+
+## 📖 Books
+
+- Browse all books
+- View detailed information about a book
+- Display book cover, title, author, year, tags and description
+- Related books
+- Books by the same author
+- Load more books functionality
+- Search books
+- Empty states
+- Loading states
+- Error handling
+
+---
+
+## ✍️ Authors
+
+- Browse all authors
+- View author information
+- Display author biography and image
+- View books written by an author
+- Navigate between authors and their books
+
+---
+
+## 🔎 Search
+
+Users can search the book collection based on relevant book information.
+
+Example:
+
+```text
+Harry Potter
