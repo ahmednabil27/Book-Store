@@ -10,9 +10,12 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
+  base:'/Book-Store/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
 })
+
+
