@@ -1,13 +1,4 @@
-# Important note;
-This is Version 2 of the project.
 
-I have been really busy recently and haven't had enough time to focus on this project. As a result, I used AI assistance several times in this version, especially for the styling and UI design.
-
-Despite that, I fully understand every line of code in this project.
-
-Version 1 was developed with very little AI assistance. I will also upload it for reference.
-
-Thank you for your understanding.
 
 # 📚 BookNest — Books & Authors SPA
 
